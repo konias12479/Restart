@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#163d36">
-<title>Restart v0.2 – testovací režim</title>
+<title>Restart v0.4 – Digital / Teen</title>
 <style>
 :root{--bg:#eef3ef;--card:#fff;--ink:#16342f;--muted:#667a75;--line:#dce7e2;--green:#287b69;--green2:#dff3ec;--gold:#bd7b24;--red:#a74545;--shadow:0 12px 34px rgba(22,52,47,.09)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(#e7f0eb 0,#f5f7f5 360px);color:var(--ink)}
@@ -17,6 +17,63 @@ button,input,select{font:inherit}.app{max-width:780px;margin:auto;min-height:100
 .score-preview{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:14px;border-radius:15px;background:#eff7f4}.score-preview strong{font-size:29px}.score-preview span{font-size:12px;color:var(--muted)}.notice{font-size:13px;line-height:1.5;border:1px solid #efd7b6;background:#fff6e8;color:#704416;border-radius:15px;padding:13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{border:1px solid var(--line);border-radius:15px;padding:14px}.metric strong{font-size:27px;display:block}.metric span{font-size:12px;color:var(--muted)}.history-item{padding:13px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border:0}.history-main{display:flex;justify-content:space-between;gap:12px}.history-meta{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.45}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 dialog{width:min(92vw,520px);border:0;border-radius:22px;padding:0;box-shadow:0 28px 90px rgba(0,0,0,.3)}dialog::backdrop{background:rgba(7,27,24,.66)}.modal{padding:21px}.modal h3{margin:0 0 7px}.timer{font-size:46px;font-weight:950;text-align:center;margin:17px 0}.footer{text-align:center;color:var(--muted);font-size:11px;margin-top:18px}
 @media(max-width:520px){.alcohol-grid,.grid2{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.brand h1{font-size:24px}.journey-km{font-size:29px}.route-note{max-width:145px}}
+
+.journey{background:
+linear-gradient(180deg,rgba(220,242,244,.96) 0%,rgba(222,239,214,.93) 45%,rgba(32,97,69,.96) 100%);
+color:#15342f;border:0;overflow:hidden;position:relative;min-height:390px}
+.journey:before{content:"";position:absolute;inset:0;background:
+radial-gradient(circle at 12% 18%,rgba(255,255,255,.9) 0 5%,transparent 6%),
+radial-gradient(circle at 28% 12%,rgba(255,255,255,.65) 0 4%,transparent 5%),
+linear-gradient(155deg,transparent 0 48%,rgba(51,117,78,.18) 49% 62%,transparent 63%);
+pointer-events:none}
+.journey:after{content:"🏰";position:absolute;right:22px;top:54px;font-size:72px;opacity:.92;filter:drop-shadow(0 8px 10px rgba(0,0,0,.18))}
+.journey-top,.journey-foot{position:relative;z-index:3}
+.journey .distance{color:#45645d;opacity:1}
+.route-art{margin:38px 0 22px;position:relative;height:190px;z-index:4}
+.route-line{position:absolute;left:28px;right:28px;top:118px;height:8px;border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 2px 0 rgba(19,74,55,.17),0 0 0 2px rgba(39,113,79,.13);overflow:visible}
+.route-line:after{content:"";position:absolute;inset:-11px 0;border-radius:999px;border-bottom:2px dashed rgba(255,255,255,.2)}
+.route-fill{height:100%;width:0;background:linear-gradient(90deg,#53a964,#b2dd77);border-radius:999px;transition:width .45s ease}
+.city{position:absolute;top:96px;text-align:center;font-size:12px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45)}
+.city:before{content:"";display:block;margin:auto;width:22px;height:22px;border:5px solid #fff;background:#2f914e;border-radius:50%;box-shadow:0 4px 11px rgba(0,0,0,.18)}
+.city.start{left:0}.city.end{right:0}
+.city.end:before{background:#fff;color:#15342f}
+.traveller{position:absolute;top:101px;left:28px;font-size:27px;transform:translateX(-50%);transition:left .45s ease;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));z-index:8}
+.route-events{position:absolute;left:28px;right:28px;top:0;height:148px;pointer-events:none}
+.route-event{position:absolute;top:70px;transform:translateX(-50%);z-index:6}
+.route-event:nth-child(even){top:14px}
+.event-pin{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #e8f0ea;box-shadow:0 6px 15px rgba(21,52,47,.2);font-size:21px}
+.event-label{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);min-width:88px;max-width:135px;background:rgba(255,255,255,.96);border:1px solid rgba(21,52,47,.13);border-radius:11px;padding:6px 8px;color:#183d35;font-size:10px;font-weight:800;line-height:1.25;text-align:center;box-shadow:0 5px 16px rgba(21,52,47,.12)}
+.route-event:nth-child(even) .event-label{bottom:auto;top:48px}
+.event-km{display:block;color:#58756d;font-weight:700;margin-top:2px}
+.event-beer .event-pin{border-color:#f4cc63}.event-wine .event-pin{border-color:#d891a0}
+.event-walk .event-pin{border-color:#72c781}.event-water .event-pin{border-color:#75bcec}
+.event-sleep .event-pin{border-color:#8874cc}.event-reflection .event-pin{border-color:#65b66e}
+.timeline-empty{position:absolute;left:50%;top:35px;transform:translateX(-50%);width:min(90%,350px);padding:9px 12px;border-radius:12px;background:rgba(255,255,255,.9);color:#4e6c64;text-align:center;font-size:12px}
+.journey-foot{background:rgba(255,255,255,.94);margin:0 -18px -18px;padding:16px 18px;border-radius:19px 19px 0 0;color:#15342f}
+.journey-km{color:#2e8e4b}
+.recent-events{display:grid;gap:8px;margin-top:12px}
+.recent-event{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.recent-event:last-child{border-bottom:0}.recent-event-icon{font-size:22px}.recent-event small{color:var(--muted)}
+@media(max-width:520px){
+ .journey{min-height:410px}.route-art{height:210px;margin-top:48px}
+ .route-event .event-label{min-width:76px;max-width:100px;font-size:9px}
+ .route-event:nth-child(n+7){display:none}
+}
+
+
+.mode-switch{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.mode-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;font-weight:800;cursor:pointer}
+.mode-btn.active{background:#245f49;color:#fff;border-color:#245f49}
+.digital-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.digital-card{border:1px solid var(--line);border-radius:16px;padding:14px;background:linear-gradient(180deg,#fff,#f8fbf9)}
+.digital-card h4{margin:0 0 6px}.digital-card p{margin:0 0 10px;color:var(--muted);font-size:13px}
+.stepper{display:flex;gap:8px;align-items:center}.stepper button{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:20px;cursor:pointer}
+.stepper strong{min-width:58px;text-align:center}
+.custom-mission{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}
+.custom-mission input{border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit}
+.digital-badge{display:inline-flex;align-items:center;gap:7px;background:#eef4ff;color:#38558d;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800}
+.event-social .event-pin{border-color:#6b8ee8}.event-read .event-pin{border-color:#b58a4b}.event-study .event-pin{border-color:#7a72c7}.event-sport .event-pin{border-color:#e58e55}.event-custom .event-pin{border-color:#8aa38f}
+@media(max-width:600px){.digital-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -26,8 +83,42 @@ dialog{width:min(92vw,520px);border:0;border-radius:22px;padding:0;box-shadow:0 
 <main id="today" class="view active">
 <section class="card journey">
  <div class="journey-top"><div><h2>Praha → Hrad Okoř</h2><div class="distance">Testovací délka cesty: 28 km</div></div><div>🏰</div></div>
- <div class="route-art"><div class="route-line"><div id="routeFill" class="route-fill"></div></div><div class="city start">Praha</div><div class="city end">Okoř</div><div id="traveller" class="traveller">🚶</div></div>
+ <div class="route-art"><div id="routeEvents" class="route-events"></div><div class="route-line"><div id="routeFill" class="route-fill"></div></div><div class="city start">Praha</div><div class="city end">Hrad Okoř</div><div id="traveller" class="traveller">🚶</div></div>
  <div class="journey-foot"><div><div id="journeyKm" class="journey-km">0,0 <small>/ 28 km</small></div><div id="journeyPercent" class="distance">0 % cesty</div></div><div id="routeNote" class="route-note">Každá dobrá volba tě posune.</div></div>
+</section>
+
+<section class="card">
+ <div class="section-title"><div><h3>Poslední záznamy na cestě</h3><p>Události se automaticky připínají na místo, kam tě jejich odměna posunula.</p></div><span class="pill ok">živá stopa</span></div>
+ <div id="recentEvents" class="recent-events small">Zatím není žádný dnešní záznam.</div>
+</section>
+
+<section class="card">
+ <div class="section-title">
+  <div><h2>Režim Restartu</h2><p>Vyber oblast, kterou dnes chceš zlepšovat.</p></div>
+  <span class="digital-badge">📱 Restart Digital</span>
+ </div>
+ <div class="mode-switch">
+  <button class="mode-btn active" data-mode="life">Celkový životní styl</button>
+  <button class="mode-btn" data-mode="digital">Digital / Teen</button>
+  <button class="mode-btn" data-mode="alcohol">Alkohol</button>
+  <button class="mode-btn" data-mode="sleep">Spánek</button>
+ </div>
+</section>
+
+<section class="card" id="digitalSection">
+ <div class="section-title">
+  <div><h2>Dnešní digitální mise</h2><p>Každá splněná aktivita tě posune na cestě Praha → Hrad Okoř.</p></div>
+  <span class="pill ok">Teen / Digital</span>
+ </div>
+ <div class="digital-grid">
+  <div class="digital-card"><h4>📵 Bez sociálních sítí</h4><p>Celé hodiny bez sociálních sítí.</p><div class="stepper"><button onclick="changeDigital('socialHours',-1)">−</button><strong id="socialHoursVal">0 h</strong><button onclick="changeDigital('socialHours',1)">+</button></div></div>
+  <div class="digital-card"><h4>🌙 Telefon před spaním</h4><p>Čas bez telefonu před usnutím.</p><div class="stepper"><button onclick="changeDigital('phoneFreeBeforeBed',-15)">−</button><strong id="phoneFreeBeforeBedVal">0 min</strong><button onclick="changeDigital('phoneFreeBeforeBed',15)">+</button></div></div>
+  <div class="digital-card"><h4>📚 Čtení</h4><p>Čtení knihy nebo studijního textu.</p><div class="stepper"><button onclick="changeDigital('readingMinutes',-10)">−</button><strong id="readingMinutesVal">0 min</strong><button onclick="changeDigital('readingMinutes',10)">+</button></div></div>
+  <div class="digital-card"><h4>🧠 Soustředěné studium</h4><p>Čas bez přepínání aplikací.</p><div class="stepper"><button onclick="changeDigital('studyMinutes',-15)">−</button><strong id="studyMinutesVal">0 min</strong><button onclick="changeDigital('studyMinutes',15)">+</button></div></div>
+  <div class="digital-card"><h4>🏃 Sport nebo pohyb</h4><p>Sport, procházka nebo aktivní hra.</p><div class="stepper"><button onclick="changeDigital('sportMinutes',-10)">−</button><strong id="sportMinutesVal">0 min</strong><button onclick="changeDigital('sportMinutes',10)">+</button></div></div>
+  <div class="digital-card"><h4>🍽️ Jídlo bez telefonu</h4><p>Jedno jídlo bez obrazovky.</p><label><input id="mealPhoneFree" type="checkbox"> Splněno</label></div>
+ </div>
+ <div class="custom-mission"><input id="customMissionText" placeholder="Vlastní mise, např. 30 minut kreslení"><button class="primary" onclick="completeCustomMission()">Splnit misi</button></div>
 </section>
 
 <section class="card">
@@ -79,7 +170,7 @@ dialog{width:min(92vw,520px);border:0;border-radius:22px;padding:0;box-shadow:0 
 </main>
 
 <nav class="tabs"><button class="tab active" data-view="today">Dnes</button><button class="tab" data-view="journey">Cesta</button><button class="tab" data-view="overview">Přehled</button></nav>
-<p class="footer">Restart v0.2 · data se ukládají pouze v tomto prohlížeči</p>
+<p class="footer">Restart v0.4 · Digital / Teen · živá cesta · data se ukládají pouze v tomto prohlížeči</p>
 </div>
 
 <dialog id="cravingDialog"><div class="modal"><h3>Pět minut bez rozhodnutí</h3><p class="small">Napij se vody, změň místnost a na pět minut odlož další rozhodnutí.</p><label for="cravingLevel">Síla chuti: <b id="cravingValue">7/10</b></label><input id="cravingLevel" type="range" min="1" max="10" value="7"><div id="timer" class="timer">05:00</div><div class="stack"><button id="startTimer" class="btn primary">Spustit 5 minut</button><button id="quickWalk" class="btn soft">Zvolit krátkou chůzi</button><button id="closeCraving" class="btn ghost">Zavřít</button></div></div></dialog>
@@ -89,8 +180,15 @@ const LIMIT=8, ROUTE_KM=28, KEY='restartV02';
 const $=id=>document.getElementById(id);
 let timerId=null,seconds=300;
 let data=loadData();
-function defaults(){return{today:{beer:0,wine:0,walk:false,water:false,screen:false,reflectionDone:false,extraWalk:0,mood:5,trigger:'Žádný / nevím',bedtime:'23:00',reflection:''},history:[]}}
-function loadData(){try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&saved.today&&Array.isArray(saved.history))return saved}catch(e){}
+function defaults(){return{today:{beer:0,wine:0,walk:false,water:false,screen:false,reflectionDone:false,extraWalk:0,mood:5,trigger:'Žádný / nevím',bedtime:'23:00',reflection:'',events:[],socialHours:0,phoneFreeBeforeBed:0,readingMinutes:0,studyMinutes:0,sportMinutes:0,mealPhoneFree:false,activeMode:'life'},history:[]}}
+function loadData(){try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&saved.today&&Array.isArray(saved.history)){saved.today.events=Array.isArray(saved.today.events)?saved.today.events:[];
+saved.today.socialHours=Number(saved.today.socialHours||0);
+saved.today.phoneFreeBeforeBed=Number(saved.today.phoneFreeBeforeBed||0);
+saved.today.readingMinutes=Number(saved.today.readingMinutes||0);
+saved.today.studyMinutes=Number(saved.today.studyMinutes||0);
+saved.today.sportMinutes=Number(saved.today.sportMinutes||0);
+saved.today.mealPhoneFree=Boolean(saved.today.mealPhoneFree);
+saved.today.activeMode=saved.today.activeMode||'life';saved.history=saved.history.map(x=>({...x,events:Array.isArray(x.events)?x.events:[]}));return saved}}catch(e){}
  const d=defaults();const oldCount=Number(localStorage.getItem('novySmerTodayCount')||0);if(oldCount)d.today.beer=oldCount;
  try{const old=JSON.parse(localStorage.getItem('novySmerHistory')||'[]');if(old.length)d.history=old.map((x,i)=>({id:'legacy-'+i,date:x.date,beer:Number(x.beers||0),wine:0,units:Number(x.beers||0),mood:Number(x.mood||5),walk:!!x.walk,water:!!x.water,screen:!!x.screen,reflectionDone:false,extraWalk:0,trigger:x.trigger||'Nevím',bedtime:x.bedtime||'23:00',reflection:'',km:calcKm({beer:Number(x.beers||0),wine:0,walk:!!x.walk,water:!!x.water,screen:!!x.screen,reflectionDone:false,extraWalk:0})}));}catch(e){} return d}
 function save(){localStorage.setItem(KEY,JSON.stringify(data))}
@@ -99,10 +197,86 @@ function calcKm(t=data.today){const u=units(t);let km=Math.max(0,LIMIT-u)*.6;if(
 function totalKm(){return Math.round(data.history.reduce((a,x)=>a+Number(x.km||0),0)*10)/10}
 function fmt(n){return Number(n).toLocaleString('cs-CZ',{minimumFractionDigits:1,maximumFractionDigits:1})}
 function syncInputs(){const t=data.today;$('beerCount').textContent=t.beer;$('wineCount').textContent=t.wine;$('walkDone').checked=t.walk;$('waterDone').checked=t.water;$('screenDone').checked=t.screen;$('reflectionDone').checked=t.reflectionDone;$('extraWalk').value=t.extraWalk;$('mood').value=t.mood;$('moodValue').textContent=t.mood+'/10';$('trigger').value=t.trigger;$('bedtime').value=t.bedtime;$('reflection').value=t.reflection;render()}
-function readInputs(){const t=data.today;t.walk=$('walkDone').checked;t.water=$('waterDone').checked;t.screen=$('screenDone').checked;t.reflectionDone=$('reflectionDone').checked;t.extraWalk=Math.max(0,Number($('extraWalk').value||0));t.mood=Number($('mood').value);t.trigger=$('trigger').value;t.bedtime=$('bedtime').value;t.reflection=$('reflection').value;save();render()}
-function render(){const u=units(),remain=LIMIT-u;$('beerCount').textContent=data.today.beer;$('wineCount').textContent=data.today.wine;$('limitPill').textContent=`${u} / ${LIMIT}`;$('limitPill').className='pill '+(u<=LIMIT?'ok':'over');$('limitFill').style.width=Math.min(100,u/LIMIT*100)+'%';$('limitFill').className='limitfill'+(u>LIMIT?' over':'');$('limitMessage').textContent=u<LIMIT?`Zbývá ${remain} testovacích jednotek.`:u===LIMIT?'Dnešní limit je naplněn.':'Limit je překročen o '+Math.abs(remain)+' jednotek. Záznam pouze popisuje den, nehodnotí tě.';$('todayKm').textContent=fmt(calcKm())+' km';renderJourney()}
-function renderJourney(){const total=totalKm(),p=Math.min(100,total/ROUTE_KM*100);$('routeFill').style.width=p+'%';$('traveller').style.left=`calc(27px + (100% - 54px) * ${p/100})`;$('journeyKm').innerHTML=`${fmt(Math.min(total,ROUTE_KM))} <small>/ ${ROUTE_KM} km</small>`;$('journeyPercent').textContent=Math.round(p)+' % cesty';$('routeNote').textContent=total>=ROUTE_KM?`Dorazil jsi na Okoř! Přebytek: ${fmt(total-ROUTE_KM)} km.`:`Do cíle zbývá ${fmt(ROUTE_KM-total)} km.`;$('journeyTotalKm').textContent=fmt(total);$('remainingKm').textContent=fmt(Math.max(0,ROUTE_KM-total));$('journeyDays').textContent=data.history.length;const avg=data.history.length?total/data.history.length:0;$('daysToGoal').textContent=avg>0&&total<ROUTE_KM?Math.ceil((ROUTE_KM-total)/avg):total>=ROUTE_KM?'Cíl':'—'}
-function changeDrink(type,delta){data.today[type]=Math.max(0,Number(data.today[type]||0)+delta);save();render()}
+function readInputs(){
+ const t=data.today;
+ const old={walk:t.walk,water:t.water,screen:t.screen,reflectionDone:t.reflectionDone,extraWalk:Number(t.extraWalk||0),mealPhoneFree:Boolean(t.mealPhoneFree)};
+ t.walk=$('walkDone').checked;t.water=$('waterDone').checked;t.screen=$('screenDone').checked;t.reflectionDone=$('reflectionDone').checked;t.mealPhoneFree=$('mealPhoneFree').checked;
+ t.extraWalk=Math.max(0,Number($('extraWalk').value||0));t.mood=Number($('mood').value);t.trigger=$('trigger').value;t.bedtime=$('bedtime').value;t.reflection=$('reflection').value;
+ if(!old.walk&&t.walk)addEvent('walk','Procházka','Základní procházka alespoň 10 minut');
+ if(old.walk&&!t.walk)removeLastEvent('walk');
+ if(!old.water&&t.water)addEvent('water','Voda','Voda mezi nápoji');
+ if(old.water&&!t.water)removeLastEvent('water');
+ if(!old.screen&&t.screen)addEvent('sleep','Spánek','20 minut bez telefonu');
+ if(old.screen&&!t.screen)removeLastEvent('sleep');
+ if(!old.reflectionDone&&t.reflectionDone)addEvent('reflection','Reflexe','Večerní reflexe dokončena');
+ if(old.reflectionDone&&!t.reflectionDone)removeLastEvent('reflection');
+ if(t.extraWalk>old.extraWalk&&t.extraWalk-old.extraWalk>=10)addEvent('walk','Chůze navíc',`${t.extraWalk} minut navíc`);
+ if(!old.mealPhoneFree&&t.mealPhoneFree)addEvent('social','Jídlo bez telefonu','Jedno jídlo bez obrazovky');
+ if(old.mealPhoneFree&&!t.mealPhoneFree)removeLastEvent('social');
+ save();render()
+}
+function render(){
+ const t=data.today;
+ if($('socialHoursVal'))$('socialHoursVal').textContent=`${Number(t.socialHours||0)} h`;
+ if($('phoneFreeBeforeBedVal'))$('phoneFreeBeforeBedVal').textContent=`${Number(t.phoneFreeBeforeBed||0)} min`;
+ if($('readingMinutesVal'))$('readingMinutesVal').textContent=`${Number(t.readingMinutes||0)} min`;
+ if($('studyMinutesVal'))$('studyMinutesVal').textContent=`${Number(t.studyMinutes||0)} min`;
+ if($('sportMinutesVal'))$('sportMinutesVal').textContent=`${Number(t.sportMinutes||0)} min`;
+ if($('mealPhoneFree'))$('mealPhoneFree').checked=Boolean(t.mealPhoneFree);
+ document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===(t.activeMode||'life')));
+const u=units(),remain=LIMIT-u;$('beerCount').textContent=data.today.beer;$('wineCount').textContent=data.today.wine;$('limitPill').textContent=`${u} / ${LIMIT}`;$('limitPill').className='pill '+(u<=LIMIT?'ok':'over');$('limitFill').style.width=Math.min(100,u/LIMIT*100)+'%';$('limitFill').className='limitfill'+(u>LIMIT?' over':'');$('limitMessage').textContent=u<LIMIT?`Zbývá ${remain} testovacích jednotek.`:u===LIMIT?'Dnešní limit je naplněn.':'Limit je překročen o '+Math.abs(remain)+' jednotek. Záznam pouze popisuje den, nehodnotí tě.';$('todayKm').textContent=fmt(calcKm())+' km';renderJourney()}
+function renderJourney(){const total=totalKm(),p=Math.min(100,total/ROUTE_KM*100);$('routeFill').style.width=p+'%';$('traveller').style.left=`calc(27px + (100% - 54px) * ${p/100})`;$('journeyKm').innerHTML=`${fmt(Math.min(total,ROUTE_KM))} <small>/ ${ROUTE_KM} km</small>`;$('journeyPercent').textContent=Math.round(p)+' % cesty';$('routeNote').textContent=total>=ROUTE_KM?`Dorazil jsi na Okoř! Přebytek: ${fmt(total-ROUTE_KM)} km.`:`Do cíle zbývá ${fmt(ROUTE_KM-total)} km.`;$('journeyTotalKm').textContent=fmt(total);$('remainingKm').textContent=fmt(Math.max(0,ROUTE_KM-total));$('journeyDays').textContent=data.history.length;const avg=data.history.length?total/data.history.length:0;$('daysToGoal').textContent=avg>0&&total<ROUTE_KM?Math.ceil((ROUTE_KM-total)/avg):total>=ROUTE_KM?'Cíl':'—';renderRouteEvents()}
+
+function nowTime(){return new Date().toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}
+function addEvent(type,label,detail=''){
+ const t=data.today;t.events=Array.isArray(t.events)?t.events:[];
+ const projectedBase=totalKm();
+ const event={id:Date.now()+Math.random(),type,label,detail,time:nowTime(),km:Math.round((projectedBase+calcKm(t))*10)/10};
+ t.events.push(event);save()
+}
+function removeLastEvent(type){
+ const e=data.today.events||[];for(let i=e.length-1;i>=0;i--){if(e[i].type===type){e.splice(i,1);break}}
+}
+function eventIcon(type){return({beer:'🍺',wine:'🍷',walk:'🚶',water:'💧',sleep:'🌙',reflection:'✓',social:'📵',read:'📚',study:'🧠',sport:'🏃',custom:'⭐'}[type]||'•')}
+function eventClass(type){return 'event-'+type}
+function allEvents(){
+ const completed=[...data.history].reverse().flatMap(day=>(day.events||[]).map(e=>({...e,dayDate:day.date})));
+ const today=(data.today.events||[]).map(e=>({...e,dayDate:'Dnes'}));
+ return [...completed,...today].slice(-12)
+}
+function renderRouteEvents(){
+ const events=allEvents(),box=$('routeEvents');
+ if(!events.length){box.innerHTML='<div class="timeline-empty">První záznam vytvoří bod na cestě.</div>';$('recentEvents').innerHTML='Zatím není žádný dnešní záznam.';return}
+ box.innerHTML=events.map((e,i)=>{
+   const p=Math.max(3,Math.min(97,(Number(e.km||0)/ROUTE_KM)*100));
+   return `<div class="route-event ${eventClass(e.type)}" style="left:${p}%"><div class="event-label">${escapeHtml(e.label)}<br>${escapeHtml(e.time||'')}<span class="event-km">${fmt(Math.min(Number(e.km||0),ROUTE_KM))} km</span></div><div class="event-pin">${eventIcon(e.type)}</div></div>`
+ }).join('');
+ const recent=(data.today.events||[]).slice(-6).reverse();
+ $('recentEvents').innerHTML=recent.length?recent.map(e=>`<div class="recent-event"><span class="recent-event-icon">${eventIcon(e.type)}</span><div><b>${escapeHtml(e.label)}</b><br><small>${escapeHtml(e.detail||'Zapsáno na dnešní cestu')}</small></div><time>${escapeHtml(e.time)}</time></div>`).join(''):'Zatím není žádný dnešní záznam.'
+}
+
+
+function digitalLabel(key){return{socialHours:'Bez sociálních sítí',phoneFreeBeforeBed:'Telefon odložený',readingMinutes:'Čtení',studyMinutes:'Soustředěné studium',sportMinutes:'Sport / pohyb'}[key]||key}
+function digitalType(key){return{socialHours:'social',phoneFreeBeforeBed:'sleep',readingMinutes:'read',studyMinutes:'study',sportMinutes:'sport'}[key]||'custom'}
+function digitalUnit(key,value){return key==='socialHours'?`${value} h`:`${value} min`}
+function changeDigital(key,delta){
+ const t=data.today,before=Number(t[key]||0),after=Math.max(0,before+delta);
+ if(after===before)return;t[key]=after;
+ if(delta>0)addEvent(digitalType(key),digitalLabel(key),digitalUnit(key,after));else removeLastEvent(digitalType(key));
+ save();render()
+}
+function completeCustomMission(){
+ const input=$('customMissionText'),text=(input.value||'').trim();if(!text)return;
+ addEvent('custom',text,'Vlastní mise splněna');input.value='';save();render()
+}
+function setMode(mode){data.today.activeMode=mode;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));save()}
+
+function changeDrink(type,delta){
+ const before=Number(data.today[type]||0),after=Math.max(0,before+delta);data.today[type]=after;
+ if(delta>0)addEvent(type,type==='beer'?'Pivo':'Víno',`${after}. dnešní záznam`);
+ else if(after<before)removeLastEvent(type);
+ save();render()
+}
 $('addBeer').onclick=()=>changeDrink('beer',1);$('removeBeer').onclick=()=>changeDrink('beer',-1);$('addWine').onclick=()=>changeDrink('wine',1);$('removeWine').onclick=()=>changeDrink('wine',-1);
 ['walkDone','waterDone','screenDone','reflectionDone','extraWalk','mood','trigger','bedtime','reflection'].forEach(id=>$(id).addEventListener(id==='mood'?'input':'change',readInputs));$('reflection').addEventListener('input',readInputs);
 document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.tab,.view').forEach(x=>x.classList.remove('active'));btn.classList.add('active');$(btn.dataset.view).classList.add('active');if(btn.dataset.view==='overview')renderOverview();if(btn.dataset.view==='journey')renderJourney()});
