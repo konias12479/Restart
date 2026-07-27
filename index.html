@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173a36" />
+  <title>Nový směr – testovací režim</title>
+  <style>
+    :root{--bg:#f4f7f5;--card:#fff;--ink:#18302d;--muted:#677b78;--line:#dce7e3;--accent:#2b7a6d;--accent2:#dff2ed;--warn:#a65b18;--danger:#a13d3d;--shadow:0 10px 30px rgba(24,48,45,.08)}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+    .app{max-width:760px;margin:auto;min-height:100vh;padding:18px 16px 96px}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:800}.top h1{margin:4px 0 0;font-size:28px}.badge{background:#fff3e5;color:#8d4f16;border:1px solid #f1d6b5;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+    .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}.tab{border:0;background:#e8efed;color:#5b6e6b;padding:11px;border-radius:12px;font-weight:800;cursor:pointer}.tab.active{background:var(--ink);color:white}.view{display:none}.view.active{display:block}
+    .hero,.card{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:20px;padding:18px;margin-bottom:14px}.hero{background:linear-gradient(145deg,#173a36,#2f7468);color:white;border:none}.hero-row{display:flex;align-items:end;justify-content:space-between;gap:12px}.hero h2{font-size:20px;margin:0 0 6px}.big{font-size:50px;font-weight:900;line-height:1}.of{font-size:20px;opacity:.72}.progress{height:12px;background:rgba(255,255,255,.18);border-radius:999px;overflow:hidden;margin:16px 0 10px}.progress>div{height:100%;width:0;background:#bcebdc;transition:.25s}.hero-note{font-size:13px;opacity:.86}.counter-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+    button{font:inherit}.btn{border:0;border-radius:13px;padding:13px 14px;font-weight:850;cursor:pointer}.primary{background:var(--accent);color:white}.secondary{background:var(--accent2);color:#185b51}.ghost{background:#edf2f0;color:#405653}.danger{background:#faeaea;color:var(--danger)}.hero .primary{background:white;color:#235e55}.hero .secondary{background:rgba(255,255,255,.14);color:white;border:1px solid rgba(255,255,255,.25)}
+    .card h3{margin:0 0 14px;font-size:17px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.stack{display:grid;gap:10px}.task{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:14px}.task input{width:21px;height:21px;accent-color:var(--accent)}.task b{display:block}.task small{color:var(--muted)}
+    label{font-size:13px;font-weight:800;color:#425955}.field{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--ink)}input[type=range]{width:100%;accent-color:var(--accent)}.mood-value{font-weight:900;font-size:22px;color:var(--accent)}
+    .notice{padding:13px 14px;border-radius:14px;background:#fff6e9;border:1px solid #f0d8b8;color:#704216;font-size:13px;line-height:1.45}.small{font-size:13px;color:var(--muted);line-height:1.5}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{padding:14px;border:1px solid var(--line);border-radius:14px}.metric strong{display:block;font-size:27px}.metric span{font-size:12px;color:var(--muted)}
+    .history-item{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border:0}.pill{padding:5px 9px;border-radius:999px;background:#edf2f0;font-size:12px;font-weight:800}.ok{background:#e1f5ee;color:#176753}.over{background:#fdeaea;color:#9a3434}
+    dialog{width:min(92vw,520px);border:0;border-radius:20px;padding:0;box-shadow:0 25px 80px rgba(0,0,0,.28)}dialog::backdrop{background:rgba(8,30,27,.62)}.modal{padding:20px}.modal h3{margin:0 0 8px}.timer{font-size:44px;font-weight:900;text-align:center;margin:18px 0}.modal-actions{display:grid;gap:9px}.footer-note{font-size:12px;color:var(--muted);text-align:center;margin-top:18px}
+    @media(max-width:520px){.grid2{grid-template-columns:1fr}.top h1{font-size:24px}.counter-actions{grid-template-columns:1fr}.hero-row{align-items:flex-start}.big{font-size:44px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div><div class="eyebrow">Nový směr</div><h1>Testovací průvodce</h1></div><div class="badge">SIMULACE</div></header>
+  <nav class="tabs"><button class="tab active" data-view="today">Dnes</button><button class="tab" data-view="plan">Plán</button><button class="tab" data-view="overview">Přehled</button></nav>
+
+  <main id="today" class="view active">
+    <section class="hero">
+      <div class="hero-row"><div><h2>Dnešní limit</h2><div><span id="beerCount" class="big">0</span><span class="of"> / 8 piv</span></div></div><div id="statusText">Zbývá 8</div></div>
+      <div class="progress"><div id="beerProgress"></div></div>
+      <div id="limitMessage" class="hero-note">Každý nápoj zaznamenej hned po vypití. Jde o test funkce, nikoli léčebné doporučení.</div>
+      <div class="counter-actions"><button id="addBeer" class="btn primary">+ Přidat pivo</button><button id="removeBeer" class="btn secondary">− Opravit záznam</button></div>
+    </section>
+
+    <section class="card"><div class="row"><h3>Právě mám chuť se napít</h3><button id="openCraving" class="btn danger">Pomoc na 5 minut</button></div><p class="small">Krátké odložení rozhodnutí, voda a změna prostředí mohou pomoci překonat okamžitý impuls.</p></section>
+
+    <section class="card"><h3>Dnešní malé kroky</h3><div class="stack">
+      <label class="task"><input id="walkDone" type="checkbox"><span><b>10 minut chůze</b><small>Klidné tempo, ideálně před obvyklou dobou pití.</small></span></label>
+      <label class="task"><input id="waterDone" type="checkbox"><span><b>Sklenice vody mezi nápoji</b><small>Jednoduchá připomínka, ne závod.</small></span></label>
+      <label class="task"><input id="screenDone" type="checkbox"><span><b>20 minut bez telefonu před spaním</b><small>Připrav si klidnější závěr dne.</small></span></label>
+    </div></section>
+
+    <section class="card"><h3>Nálada a spánek</h3><div class="stack">
+      <div><div class="row"><label for="mood">Dnešní nálada</label><span id="moodValue" class="mood-value">5/10</span></div><input id="mood" type="range" min="1" max="10" value="5"></div>
+      <div><label for="trigger">Nejvýraznější spouštěč</label><select id="trigger" class="field"><option>Žádný / nevím</option><option>Stres</option><option>Smutek</option><option>Nuda</option><option>Zvyk</option><option>Odměna po práci</option><option>Společnost</option><option>Problémy se spánkem</option></select></div>
+      <div><label for="bedtime">Plánovaný čas spánku</label><input id="bedtime" class="field" type="time" value="23:00"></div>
+      <button id="closeDay" class="btn primary">Uzavřít a uložit dnešní den</button>
+    </div></section>
+
+    <div class="notice"><b>Bezpečnost:</b> Tato verze je pouze simulace produktu. Každodenní vysoká konzumace může znamenat fyzickou závislost a náhlé vysazení může být nebezpečné. Skutečný plán snižování má určit zdravotník.</div>
+  </main>
+
+  <main id="plan" class="view">
+    <section class="card"><h3>Testovací profil</h3><div class="grid2"><div class="metric"><strong>8</strong><span>denní testovací limit</span></div><div class="metric"><strong>18:00</strong><span>rizikové období</span></div><div class="metric"><strong>10 min</strong><span>minimální procházka</span></div><div class="metric"><strong>23:00</strong><span>cílový čas spánku</span></div></div></section>
+    <section class="card"><h3>Pravidla testu</h3><div class="stack small"><div>1. Každé pivo zaznamenej samostatně.</div><div>2. Při silné chuti nejprve spusť pětiminutovou pomoc.</div><div>3. Den nehodnotíme jako selhání. Sledujeme vzorce a použitelnost aplikace.</div><div>4. Limit 8 je pevně nastaven pro tuto simulaci a automaticky se nesnižuje.</div></div></section>
+    <section class="card"><h3>Návrh aktivity</h3><div class="stack"><select id="timeAvailable" class="field"><option value="10">Mám 10 minut</option><option value="30">Mám 30 minut</option><option value="120">Mám 2 hodiny</option></select><select id="energy" class="field"><option value="low">Málo energie</option><option value="mid">Střední energie</option><option value="high">Dost energie</option></select><button id="suggestActivity" class="btn secondary">Navrhnout aktivitu</button><div id="activityResult" class="notice">Vyber čas a energii.</div></div></section>
+  </main>
+
+  <main id="overview" class="view">
+    <section class="card"><h3>Souhrn uložených dní</h3><div class="grid2"><div class="metric"><strong id="daysTotal">0</strong><span>uložených dní</span></div><div class="metric"><strong id="daysOnPlan">0</strong><span>dní do limitu</span></div><div class="metric"><strong id="avgBeer">0</strong><span>průměr piv</span></div><div class="metric"><strong id="avgMood">0</strong><span>průměrná nálada</span></div></div></section>
+    <section class="card"><div class="row"><h3>Historie</h3><button id="resetData" class="btn ghost">Smazat testovací data</button></div><div id="history" class="small">Zatím není uložen žádný den.</div></section>
+  </main>
+
+  <p class="footer-note">Data se ukládají pouze v tomto prohlížeči.</p>
+</div>
+
+<dialog id="cravingDialog"><div class="modal"><h3>Pět minut bez rozhodnutí</h3><p class="small">Napij se vody, postav se a změň místnost. Nemusíš se teď rozhodnout na celý večer.</p><label for="cravingLevel">Síla chuti: <b id="cravingValue">7/10</b></label><input id="cravingLevel" type="range" min="1" max="10" value="7"><div id="timer" class="timer">05:00</div><div class="modal-actions"><button id="startTimer" class="btn primary">Spustit 5 minut</button><button id="quickWalk" class="btn secondary">Zvolit krátkou chůzi</button><button id="closeCraving" class="btn ghost">Zavřít</button></div></div></dialog>
+
+<script>
+const LIMIT=8;let count=Number(localStorage.getItem('novySmerTodayCount')||0);let timerId=null;let seconds=300;
+const $=id=>document.getElementById(id);
+function updateCounter(){ $('beerCount').textContent=count;$('statusText').textContent=count<=LIMIT?`Zbývá ${LIMIT-count}`:`Nad limitem o ${count-LIMIT}`;$('beerProgress').style.width=Math.min(100,count/LIMIT*100)+'%';$('limitMessage').textContent=count< LIMIT?'Každý nápoj zaznamenej hned po vypití.':count===LIMIT?'Dnešní testovací limit je naplněn. Zkus pití pro dnešek ukončit.':'Limit byl překročen. Bez hodnocení—zaznamenej okolnosti a den později vyhodnotíme.';localStorage.setItem('novySmerTodayCount',count)}
+$('addBeer').onclick=()=>{count++;updateCounter()};$('removeBeer').onclick=()=>{count=Math.max(0,count-1);updateCounter()};
+$('mood').oninput=e=>$('moodValue').textContent=e.target.value+'/10';
+document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.tab,.view').forEach(x=>x.classList.remove('active'));btn.classList.add('active');$(btn.dataset.view).classList.add('active');if(btn.dataset.view==='overview')renderOverview()});
+$('openCraving').onclick=()=>$('cravingDialog').showModal();$('closeCraving').onclick=()=>$('cravingDialog').close();$('cravingLevel').oninput=e=>$('cravingValue').textContent=e.target.value+'/10';
+function drawTimer(){const m=String(Math.floor(seconds/60)).padStart(2,'0'),s=String(seconds%60).padStart(2,'0');$('timer').textContent=`${m}:${s}`}
+$('startTimer').onclick=()=>{if(timerId)return;timerId=setInterval(()=>{seconds--;drawTimer();if(seconds<=0){clearInterval(timerId);timerId=null;$('startTimer').textContent='Hotovo – znovu zhodnotit chuť'}},1000)};$('quickWalk').onclick=()=>{$('walkDone').checked=true;$('cravingDialog').close()};
+$('suggestActivity').onclick=()=>{const t=$('timeAvailable').value,e=$('energy').value;let text='';if(t==='10')text=e==='low'?'Vyjdi před dům a 5 minut jdi jedním směrem, potom se vrať.':'Svižná desetiminutová procházka bez telefonu.';if(t==='30')text=e==='low'?'Klidný okruh v nejbližším parku nebo kolem bloku.':'Fotografická procházka: najdi a vyfoť tři zajímavé detaily.';if(t==='120')text=e==='low'?'Nenáročná návštěva kavárny, galerie nebo krátká procházka v přírodě.':'Delší procházka nebo místní výlet s jasným cílem a návratem před večerem.';$('activityResult').textContent=text};
+function getHistory(){return JSON.parse(localStorage.getItem('novySmerHistory')||'[]')}
+$('closeDay').onclick=()=>{const history=getHistory();history.unshift({date:new Date().toLocaleDateString('cs-CZ'),beers:count,mood:Number($('mood').value),walk:$('walkDone').checked,water:$('waterDone').checked,screen:$('screenDone').checked,trigger:$('trigger').value,bedtime:$('bedtime').value});localStorage.setItem('novySmerHistory',JSON.stringify(history.slice(0,30)));count=0;localStorage.setItem('novySmerTodayCount','0');['walkDone','waterDone','screenDone'].forEach(id=>$(id).checked=false);updateCounter();alert('Den byl uložen do přehledu.')};
+function renderOverview(){const h=getHistory();$('daysTotal').textContent=h.length;$('daysOnPlan').textContent=h.filter(x=>x.beers<=LIMIT).length;$('avgBeer').textContent=h.length?(h.reduce((a,x)=>a+x.beers,0)/h.length).toFixed(1):'0';$('avgMood').textContent=h.length?(h.reduce((a,x)=>a+x.mood,0)/h.length).toFixed(1):'0';$('history').innerHTML=h.length?h.map(x=>`<div class="history-item"><div><b>${x.date}</b><br><span>${x.beers} piv · nálada ${x.mood}/10 · ${x.walk?'procházka splněna':'bez procházky'}<br>Spouštěč: ${x.trigger}</span></div><span class="pill ${x.beers<=LIMIT?'ok':'over'}">${x.beers<=LIMIT?'v limitu':'nad limitem'}</span></div>`).join(''):'Zatím není uložen žádný den.'}
+$('resetData').onclick=()=>{if(confirm('Opravdu smazat všechna testovací data?')){localStorage.removeItem('novySmerHistory');localStorage.removeItem('novySmerTodayCount');count=0;updateCounter();renderOverview()}};
+updateCounter();drawTimer();
+</script>
+</body>
+</html>
